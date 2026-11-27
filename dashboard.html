@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,61 +6,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARP Spoofing Detection Dashboard</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f3f5f9;margin:0;padding:28px;color:#172033}
-main{max-width:850px;margin:auto}.panel{background:white;border-radius:12px;padding:22px;margin:16px 0;box-shadow:0 2px 12px #0000000d}
-h1{margin-bottom:6px}.muted{color:#64748b}.stats{display:flex;gap:14px;flex-wrap:wrap}
-.stat{flex:1;min-width:150px;background:#f8fafc;padding:18px;border-radius:10px}
-.value{font-size:28px;font-weight:bold;margin-top:8px}
-.status{font-weight:bold;padding:10px;border-radius:8px;background:#dcfce7;color:#166534}
-button{border:0;border-radius:8px;padding:12px 16px;margin:6px 6px 6px 0;cursor:pointer;font-weight:bold}
-.warn{background:#fee2e2;color:#991b1b}.normal{background:#dcfce7;color:#166534}
-#alerts{line-height:1.7}
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f5f9;
+    margin: 0;
+    padding: 28px;
+    color: #172033;
+}
+main { max-width: 850px; margin: auto; }
+.panel {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin: 16px 0;
+    box-shadow: 0 2px 12px #0000000d;
+}
+.muted { color: #64748b; }
+.stats { display: flex; gap: 14px; flex-wrap: wrap; }
+.stat {
+    flex: 1;
+    min-width: 150px;
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 10px;
+}
+.value { font-size: 28px; font-weight: bold; margin-top: 8px; }
+.status {
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    background: #dcfce7;
+    color: #166534;
+}
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 6px 6px 6px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+.warn { background: #fee2e2; color: #991b1b; }
+.normal { background: #dcfce7; color: #166534; }
 </style>
 </head>
 <body>
 <main>
 <h1>ARP Spoofing Detection Dashboard</h1>
-<p class="muted">Member 3 project demonstration – simulated data</p>
+<p class="muted">Member 3 - ARP Monitoring and Detection</p>
+
 <div class="panel">
-  <div class="stats">
-    <div class="stat">Devices (sample)<div class="value" id="devices">3</div></div>
-    <div class="stat">Security alerts<div class="value" id="count">0</div></div>
-  </div>
+    <div class="stats">
+        <div class="stat">
+            Devices Monitored
+            <div class="value" id="devices">4</div>
+        </div>
+        <div class="stat">
+            Security Alerts
+            <div class="value" id="count">0</div>
+        </div>
+    </div>
 </div>
+
 <div class="panel">
-  <h2>Network status</h2>
-  <div id="status" class="status">NETWORK NORMAL</div>
-  <p id="details">Gateway MAC matches the trusted baseline in this demonstration.</p>
-  <button class="warn" onclick="simulate()">Simulate Suspicious Activity</button>
-  <button class="normal" onclick="restore()">Restore Normal Network</button>
+    <h2>Network Status</h2>
+    <div id="status" class="status">NETWORK NORMAL</div>
+    <p id="details">No suspicious activity detected in this demonstration.</p>
+
+    <button class="warn" onclick="simulate()">
+        Simulate Suspicious Activity
+    </button>
+    <button class="normal" onclick="restore()">
+        Restore Normal Network
+    </button>
 </div>
+
 <div class="panel">
-  <h2>Security alerts</h2>
-  <ul id="alerts"><li>No alerts in the current demonstration.</li></ul>
+    <h2>Security Alerts</h2>
+    <ul id="alerts"><li>No alerts detected.</li></ul>
 </div>
+
 <div class="panel muted">
-  <strong>Important limitation:</strong> This dashboard uses simulated values. It is not connected to live network traffic and does not capture ARP packets.
+    <strong>Note:</strong>
+    This dashboard uses simulated data for educational demonstration.
+    It is not connected to live network traffic.
 </div>
 </main>
+
 <script>
-let alertCount=0;
-function simulate(){
-  alertCount=1;
-  document.getElementById('count').textContent=alertCount;
-  const s=document.getElementById('status');
-  s.textContent='WARNING – SUSPICIOUS ACTIVITY DETECTED';
-  s.style.background='#fee2e2';s.style.color='#991b1b';
-  document.getElementById('details').textContent='Simulated gateway MAC mismatch: current MAC differs from trusted baseline.';
-  document.getElementById('alerts').innerHTML='<li>Gateway MAC address mismatch (simulated test)</li>';
+let alertCount = 0;
+
+function simulate() {
+    alertCount = 2;
+
+    document.getElementById("devices").textContent = 4;
+    document.getElementById("count").textContent = alertCount;
+
+    const status = document.getElementById("status");
+    status.textContent = "WARNING - SUSPICIOUS ACTIVITY DETECTED";
+    status.style.background = "#fee2e2";
+    status.style.color = "#991b1b";
+
+    document.getElementById("details").textContent =
+        "Possible ARP spoofing activity detected in the simulated test.";
+
+    document.getElementById("alerts").innerHTML = `
+        <li>Gateway MAC address mismatch (simulated)</li>
+        <li>Suspicious IP-to-MAC mapping detected (simulated)</li>
+    `;
 }
-function restore(){
-  alertCount=0;
-  document.getElementById('count').textContent=alertCount;
-  const s=document.getElementById('status');
-  s.textContent='NETWORK NORMAL';
-  s.style.background='#dcfce7';s.style.color='#166534';
-  document.getElementById('details').textContent='Demonstration restored to the normal state.';
-  document.getElementById('alerts').innerHTML='<li>No alerts in the current demonstration.</li>';
+
+function restore() {
+    alertCount = 0;
+
+    // Device count stays at 4
+    document.getElementById("devices").textContent = 4;
+    document.getElementById("count").textContent = 0;
+
+    const status = document.getElementById("status");
+    status.textContent = "NETWORK NORMAL";
+    status.style.background = "#dcfce7";
+    status.style.color = "#166534";
+
+    document.getElementById("details").textContent =
+        "Network restored to normal demonstration state.";
+
+    document.getElementById("alerts").innerHTML =
+        "<li>No alerts detected.</li>";
 }
 </script>
 </body>
